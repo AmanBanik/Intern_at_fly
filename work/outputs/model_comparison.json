@@ -3,18 +3,21 @@
     "K": 20,
     "Base Rate": 0.5188969528582371,
     "Baseline P@K": 0.65,
-    "Model P@K": 0.6
+    "Naive RF P@K": 0.65,
+    "Advanced HGB P@K": 0.4
   },
   {
     "K": 50,
     "Base Rate": 0.5188969528582371,
     "Baseline P@K": 0.74,
-    "Model P@K": 0.52
+    "Naive RF P@K": 0.52,
+    "Advanced HGB P@K": 0.38
   },
   {
     "K": 100,
     "Base Rate": 0.5188969528582371,
     "Baseline P@K": 0.75,
-    "Model P@K": 0.42
+    "Naive RF P@K": 0.43,
+    "Advanced HGB P@K": 0.45
   }
 ]
