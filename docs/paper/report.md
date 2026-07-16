@@ -72,5 +72,5 @@ This research is fully transparent and reproducible.
 *   **Notebooks:** The step-by-step logic and model progressions are documented sequentially in `work/notebooks/`.
 *   **Environment:** standard python environment with `pandas`, `duckdb`, `scikit-learn`, and `matplotlib`. All random seeds are locked (`random_state=42`).
 
----
-*Acknowledgments: [Built on the FlyRank ML Internship dataset](https://flyrank.ai).*
+## 9. Acknowledgments & data credit
+[Built on the FlyRank ML Internship dataset](https://flyrank.ai)
