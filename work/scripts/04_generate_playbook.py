@@ -3,18 +3,20 @@ import json
 import pandas as pd
 
 def assign_priority(row):
-    if row['imp_past15'] > 1000 and row['score'] > 0:
+    # Updated to use the Tuned ML Probability Threshold (> 0.45)
+    if row['imp_past15'] > 1000 and row['tuned_rf_prob'] > 0.45:
         return 'R1 - High-Value Drift'
-    elif row['score'] > 0:
+    elif row['tuned_rf_prob'] > 0.45:
         return 'R2 - Stale Warning'
-    elif row['imp_past15'] > 500 and row['score'] <= 0:
+    elif row['imp_past15'] > 500 and row['tuned_rf_prob'] <= 0.45:
         return 'S1 - Stable/Safe'
     else:
         return 'S2 - Low-Value Ghost'
 
 def run_playbook():
-    print("Running 04_generate_playbook...")
-    df = pd.read_csv('../outputs/baseline_action_score.csv')
+    print("Running 04_generate_playbook (using Tuned ML Model)...")
+    # Load the Advanced ML dataset
+    df = pd.read_csv('../outputs/advanced_ml_scores.csv')
     df['action_priority'] = df.apply(assign_priority, axis=1)
     
     queue_df = df[df['action_priority'].str.startswith('R')].sort_values(by='imp_past15', ascending=False)
