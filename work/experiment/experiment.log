@@ -1,39 +1,38 @@
-2026-07-16 19:59:22,042 - Starting Advanced Random Forest Experiment...
-2026-07-16 20:00:06,809 - Starting Advanced Random Forest Experiment...
-2026-07-16 20:00:06,949 - Calculating Correlation Matrix...
-2026-07-16 20:00:06,963 - Calculating VIF...
-2026-07-16 20:00:07,053 - VIF summary:
+2026-07-19 23:34:02,420 - Starting Advanced Random Forest Experiment...
+2026-07-19 23:34:02,555 - Calculating Correlation Matrix...
+2026-07-19 23:34:02,565 - Calculating VIF...
+2026-07-19 23:34:02,669 - VIF summary:
              feature       VIF
-0         imp_past15  1.172599
+0         imp_past15  1.368202
 1     pos_first_half       inf
 2    pos_second_half       inf
 3         pos_change       inf
 4  client_median_pos       inf
 5  relative_pos_diff       inf
-6           imp_rank  1.273320
-7         rank_ratio  1.090621
-2026-07-16 20:00:07,053 - Running RFE...
-2026-07-16 20:00:09,846 - RFE summary:
+6           imp_rank  1.397926
+7         rank_ratio  1.000287
+2026-07-19 23:34:02,669 - Running RFE...
+2026-07-19 23:34:05,150 - RFE summary:
              Feature  Ranking  Selected
+0         imp_past15        1      True
 1     pos_first_half        1      True
 2    pos_second_half        1      True
-3         pos_change        1      True
 4  client_median_pos        1      True
-7         rank_ratio        1      True
-5  relative_pos_diff        2     False
-6           imp_rank        3     False
-0         imp_past15        4     False
-2026-07-16 20:00:09,846 - Selected Features for tuning: ['pos_first_half', 'pos_second_half', 'pos_change', 'client_median_pos', 'rank_ratio']
-2026-07-16 20:00:09,847 - Running Hyperparameter Tuning (RandomizedSearchCV)...
-2026-07-16 20:01:28,475 - Best Hyperparameters: {'n_estimators': 200, 'min_samples_split': 100, 'min_samples_leaf': 20, 'max_depth': 5}
-2026-07-16 20:01:28,475 - Generating n_estimators curve...
-2026-07-16 20:01:28,615 - n_estimators=10 -> Precision@100 = 0.6500
-2026-07-16 20:01:29,065 - n_estimators=50 -> Precision@100 = 0.5800
-2026-07-16 20:01:29,915 - n_estimators=100 -> Precision@100 = 0.5800
-2026-07-16 20:01:31,550 - n_estimators=200 -> Precision@100 = 0.5700
-2026-07-16 20:01:33,910 - n_estimators=300 -> Precision@100 = 0.6300
-2026-07-16 20:01:34,692 - Running final inference with Best Model on 5-Fold GroupKFold...
-2026-07-16 20:02:03,347 - --- FINAL RESULTS ---
-2026-07-16 20:02:03,347 - Baseline Precision@100: 0.7500
-2026-07-16 20:02:03,347 - Tuned RF Precision@100: 0.3800
-2026-07-16 20:02:03,347 - LOSS! The Baseline still wins. The leakage trap is incredibly strong.
+5  relative_pos_diff        1      True
+6           imp_rank        2     False
+3         pos_change        3     False
+7         rank_ratio        4     False
+2026-07-19 23:34:05,150 - Selected Features for tuning: ['imp_past15', 'pos_first_half', 'pos_second_half', 'client_median_pos', 'relative_pos_diff']
+2026-07-19 23:34:05,151 - Running Hyperparameter Tuning (RandomizedSearchCV)...
+2026-07-19 23:35:15,983 - Best Hyperparameters: {'n_estimators': 200, 'min_samples_split': 100, 'min_samples_leaf': 20, 'max_depth': 5}
+2026-07-19 23:35:15,984 - Generating n_estimators curve...
+2026-07-19 23:35:16,136 - n_estimators=10 -> Precision@100 = 0.4600
+2026-07-19 23:35:16,589 - n_estimators=50 -> Precision@100 = 0.4500
+2026-07-19 23:35:17,411 - n_estimators=100 -> Precision@100 = 0.4500
+2026-07-19 23:35:19,022 - n_estimators=200 -> Precision@100 = 0.5500
+2026-07-19 23:35:21,388 - n_estimators=300 -> Precision@100 = 0.5000
+2026-07-19 23:35:21,583 - Running final inference with Best Model on 5-Fold GroupKFold...
+2026-07-19 23:35:46,603 - --- FINAL RESULTS ---
+2026-07-19 23:35:46,603 - Baseline Precision@100: 0.6300
+2026-07-19 23:35:46,604 - Tuned RF Precision@100: 0.7100
+2026-07-19 23:35:46,604 - WIN! The Tuned Random Forest finally beat the baseline!
