@@ -13,11 +13,11 @@ def run_pipeline():
         con.execute(f"CREATE OR REPLACE SECRET hf (TYPE huggingface, TOKEN '{HF_TOKEN}')")
     
     REL = 'hf://datasets/FlyRank/internship-warehouse'
-    SAMPLE_TABLE = f"read_parquet('{REL}/fact_content_daily_performance_sample.parquet')"
+    MID_PANEL = f"(SELECT * FROM read_parquet('{REL}/fact_content_daily_performance/**/*.parquet') WHERE report_date BETWEEN '2026-03-01' AND '2026-03-31')"
     
     query = f"""
         WITH bounds AS (
-            SELECT MAX(report_date) AS end_d FROM {SAMPLE_TABLE}
+            SELECT MAX(report_date) AS end_d FROM {MID_PANEL}
         ),
         content_agg AS (
             SELECT 
@@ -27,7 +27,7 @@ def run_pipeline():
                 AVG(CASE WHEN f.report_date BETWEEN b.end_d - INTERVAL 30 DAY AND b.end_d - INTERVAL 23 DAY THEN f.gsc_avg_position END) AS pos_first_half,
                 AVG(CASE WHEN f.report_date BETWEEN b.end_d - INTERVAL 22 DAY AND b.end_d - INTERVAL 16 DAY THEN f.gsc_avg_position END) AS pos_second_half,
                 SUM(CASE WHEN f.report_date > b.end_d - INTERVAL 15 DAY THEN f.gsc_impressions ELSE 0 END) AS imp_next15
-            FROM {SAMPLE_TABLE} f
+            FROM {MID_PANEL} f
             CROSS JOIN bounds b
             GROUP BY 1, 2
             HAVING imp_past15 >= 100

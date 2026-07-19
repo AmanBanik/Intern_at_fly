@@ -6,8 +6,7 @@ def run_baseline():
     print("Running 02_baseline_model...")
     df = pd.read_csv('../outputs/raw_features.csv')
     
-    df['pos_first_half'] = df['pos_first_half'].fillna(0)
-    df['pos_second_half'] = df['pos_second_half'].fillna(0)
+    df = df.dropna(subset=['pos_first_half', 'pos_second_half'])
     
     df['stale'] = (df['pos_second_half'] - df['pos_first_half'] >= 1.0).astype(int)
     df['visible'] = (df['imp_past15'] >= 100).astype(int)
