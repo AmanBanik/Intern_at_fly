@@ -1,5 +1,5 @@
 {
-    "base_rate": 0.5188969528582371,
-    "precision_at_20": 0.65,
-    "precision_at_50": 0.74
+    "base_rate": 0.3850070946438754,
+    "precision_at_20": 0.4,
+    "precision_at_50": 0.58
 }

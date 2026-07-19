@@ -1,23 +1,23 @@
 [
   {
     "K": 20,
-    "Base Rate": 0.5188969528582371,
-    "Baseline P@K": 0.65,
-    "Naive RF P@K": 0.65,
-    "Advanced HGB P@K": 0.4
+    "Base Rate": 0.3850070946438754,
+    "Baseline P@K": 0.4,
+    "Naive RF P@K": 0.6,
+    "Advanced HGB P@K": 0.55
   },
   {
     "K": 50,
-    "Base Rate": 0.5188969528582371,
-    "Baseline P@K": 0.74,
+    "Base Rate": 0.3850070946438754,
+    "Baseline P@K": 0.58,
     "Naive RF P@K": 0.52,
-    "Advanced HGB P@K": 0.38
+    "Advanced HGB P@K": 0.5
   },
   {
     "K": 100,
-    "Base Rate": 0.5188969528582371,
-    "Baseline P@K": 0.75,
-    "Naive RF P@K": 0.43,
-    "Advanced HGB P@K": 0.45
+    "Base Rate": 0.3850070946438754,
+    "Baseline P@K": 0.63,
+    "Naive RF P@K": 0.54,
+    "Advanced HGB P@K": 0.46
   }
 ]
