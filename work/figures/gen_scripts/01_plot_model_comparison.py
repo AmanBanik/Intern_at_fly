@@ -10,7 +10,7 @@ with open('../../outputs/model_comparison.json', 'r') as f:
 k_values = [str(d['K']) for d in data]
 baseline_pk = [d['Baseline P@K'] for d in data]
 rf_pk = [d['Naive RF P@K'] for d in data]
-hgb_pk = [d['Advanced HGB P@K'] for d in data]
+tuned_pk = [d.get('Tuned RF P@K', d.get('Advanced HGB P@K', 0)) for d in data]
 base_rate = data[0]['Base Rate']
 
 x = np.arange(len(k_values))
@@ -19,7 +19,7 @@ width = 0.25
 fig, ax = plt.subplots(figsize=(10, 6))
 rects1 = ax.bar(x - width, baseline_pk, width, label='Transparent Baseline', color='#2196F3')
 rects2 = ax.bar(x, rf_pk, width, label='Naive RF', color='#FF9800')
-rects3 = ax.bar(x + width, hgb_pk, width, label='Advanced HGB', color='#9C27B0')
+rects3 = ax.bar(x + width, tuned_pk, width, label='Tuned RF (Winner)', color='#4CAF50')
 
 # Add base rate line
 ax.axhline(y=base_rate, color='#E53935', linestyle='--', label=f'Base Rate ({base_rate:.2f})')
