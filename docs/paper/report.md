@@ -45,7 +45,7 @@ We utilized a strict `GroupKFold` cross-validation split (grouped by `client_has
 **Model vs Baseline:**
 When evaluated on the strictly grouped holdout split, the Tuned Random Forest significantly outperformed the baseline heuristic.
 
-![Model Comparison](figures/model_comparison.svg)
+![Model Comparison](figures/model_comparison.svg)  
 *The baseline heuristic achieved a robust 63% Precision@100. The Naive RF collapsed to 54% because it memorized absolute positions. But with advanced relative feature engineering and aggressive regularization, the Tuned RF soared to 71% Precision@100, decisively capturing the true signal and defeating the baseline!*
 
 ## 6. Interpretation
@@ -56,7 +56,7 @@ The initial Naive ML model failed because web traffic data is fundamentally unba
 
 For a moment, it seemed our transparent heuristic (63%) was going to win. But we didn't give up. We pushed through a rigorous hustle—running Recursive Feature Elimination (RFE), Variance Inflation Factor (VIF) analyses, and exhaustive Grid Search cross-validation (see `work/experiment/` for the receipts). By engineering relative features and heavily regularizing our Tuned RF (`min_samples_leaf=20`), we physically prevented the decision trees from memorizing absolute ranks. 
 
-![N-Estimators Tuning Curve](n_estimators_curve.png)
+![N-Estimators Tuning Curve](figures/n_estimators_curve.png)  
 *Our Grid Search revealed that aggressive regularization combined with a larger forest (n_estimators=200) was required to stabilize the model and prevent the trees from falling into the absolute rank generalization trap.*
 
 This hustle allowed the ML model to finally extract the true underlying signal, reaching an unprecedented 71% Precision. We confidently rejected the heuristic and deployed the Tuned Random Forest.
