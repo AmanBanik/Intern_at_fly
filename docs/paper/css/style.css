@@ -10,6 +10,9 @@
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at top right, rgba(200, 240, 210, 0.6), transparent 50%),
+        radial-gradient(circle at bottom left, rgba(255, 250, 210, 0.5), transparent 50%);
     color: var(--text-main);
     line-height: 1.7;
     margin: 0;
