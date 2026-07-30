@@ -1,4 +1,4 @@
-# Capstone Report — Growth / Recovery / Momentum Prediction
+# Capstone Report — Search Momentum Prediction
 
 - **Author:** Aman Banik
 - **Lane:** Freestyle B: Growth / Recovery / Momentum Prediction
