@@ -56,7 +56,7 @@ The initial Naive ML model failed because web traffic data is fundamentally unba
 
 For a moment, it seemed our transparent heuristic (63%) was going to win. But we didn't give up. We pushed through a rigorous hustle—running Recursive Feature Elimination (RFE), Variance Inflation Factor (VIF) analyses, and exhaustive Grid Search cross-validation (see `work/experiment/` for the receipts). By engineering relative features and heavily regularizing our Tuned RF (`min_samples_leaf=20`), we physically prevented the decision trees from memorizing absolute ranks. 
 
-![N-Estimators Tuning Curve](experiment/n_estimators_curve.png)
+![N-Estimators Tuning Curve](experiment/n_estimators_curve.png)  
 *Our Grid Search revealed that aggressive regularization combined with a larger forest (n_estimators=200) was required to stabilize the model and prevent the trees from falling into the absolute rank generalization trap.*
 
 This hustle allowed the ML model to finally extract the true underlying signal, reaching an unprecedented 71% Precision. We confidently rejected the heuristic and deployed the Tuned Random Forest.
