@@ -45,7 +45,7 @@ We utilized a strict `GroupKFold` cross-validation split (grouped by `client_has
 **Model vs Baseline:**
 When evaluated on the strictly grouped holdout split, the Tuned Random Forest significantly outperformed the baseline heuristic.
 
-![Model Comparison](figures/model_comparison.svg)  
+![Model Comparison](figures/model_comparison.svg)
 *The baseline heuristic achieved a robust 63% Precision@100. The Naive RF collapsed to 54% because it memorized absolute positions. But with advanced relative feature engineering and aggressive regularization, the Tuned RF soared to 71% Precision@100, decisively capturing the true signal and defeating the baseline!*
 
 ## 6. Interpretation
@@ -56,19 +56,26 @@ The initial Naive ML model failed because web traffic data is fundamentally unba
 
 For a moment, it seemed our transparent heuristic (63%) was going to win. But we didn't give up. We pushed through a rigorous hustle—running Recursive Feature Elimination (RFE), Variance Inflation Factor (VIF) analyses, and exhaustive Grid Search cross-validation (see `work/experiment/` for the receipts). By engineering relative features and heavily regularizing our Tuned RF (`min_samples_leaf=20`), we physically prevented the decision trees from memorizing absolute ranks. 
 
-![N-Estimators Tuning Curve](figures/n_estimators_curve.png)  
+![N-Estimators Tuning Curve](experiment/n_estimators_curve.png)
 *Our Grid Search revealed that aggressive regularization combined with a larger forest (n_estimators=200) was required to stabilize the model and prevent the trees from falling into the absolute rank generalization trap.*
 
 This hustle allowed the ML model to finally extract the true underlying signal, reaching an unprecedented 71% Precision. We confidently rejected the heuristic and deployed the Tuned Random Forest.
 
-## 7. Recommendation
+## 7. Recommendations
 
-Based on the winning Tuned ML model, we mapped the portfolio into a prioritized action playbook with distinct reason codes. These scores are strictly **decision-support** metrics; they identify pages that *look* worth reviewing first. 
+Based on the winning Tuned ML model, we mapped the portfolio into a prioritized action playbook with distinct reason codes. These scores are strictly **decision-support** metrics; they identify pages that *look* worth reviewing first. By applying the Tuned ML threshold, we successfully filtered a noisy 75,000-page dataset into a highly actionable queue. 
 
 ![Triage Results](figures/triage_results.svg)  
 *By applying the Tuned ML threshold, we successfully filtered a noisy 75,000-page dataset into a highly actionable queue of exactly 5,562 R1 targets.*
 
-A FlyRank editor can use this tomorrow by starting at the top of the **[R1] High-Value Drift (5,562 pages)** queue for immediate editorial refreshes. 
+**Part 1: Operational Strategy**
+*   **Immediate Triage:** A FlyRank editor can use this tomorrow by starting at the top of the **[R1] High-Value Drift (5,562 pages)** queue for immediate editorial refreshes.
+*   **Automated Auditing:** Route the lower-traffic **[R2] Stale Warning** pages into automated SEO crawlers to check for basic technical decay before spending human budget on them.
+*   **Content Lock & Prune:** Institute a "Do Not Touch" lock on the stable **[S1]** pages to protect their active momentum, and begin bulk-archiving the dead-weight **[S2]** pages to optimize crawl budget.
+
+**Part 2: Future ML Pipeline**
+*   **Engineer Seasonality (YoY):** Build a Year-over-Year traffic variance feature to prevent the model from firing false positives on pages that are organically dropping simply because their topic is "out of season."
+*   **Re-integrate GA4 Data:** Collaborate with Data Engineering to repair the upstream GA4 tracking pipeline. Reliable user-engagement metrics (like bounce rate) would allow the model to mathematically distinguish between a Google algorithm drop and poor content quality.
 
 ## 8. Reproducibility
 
@@ -76,5 +83,3 @@ This research is fully transparent and reproducible.
 *   **Codebase:** The complete sequence of data extraction, baseline scoring, ML modeling, and queue generation is available in `work/scripts/run_all.py`. (Figures generated via `work/figures/gen_scripts/`).
 *   **Notebooks:** The step-by-step logic and model progressions are documented sequentially in `work/notebooks/`.
 *   **Environment:** standard python environment with `pandas`, `duckdb`, `scikit-learn`, and `matplotlib`. All random seeds are locked (`random_state=42`).
-
-
