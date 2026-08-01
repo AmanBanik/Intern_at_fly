@@ -61,14 +61,21 @@ For a moment, it seemed our transparent heuristic (63%) was going to win. But we
 
 This hustle allowed the ML model to finally extract the true underlying signal, reaching an unprecedented 71% Precision. We confidently rejected the heuristic and deployed the Tuned Random Forest.
 
-## 7. Recommendation
+## 7. Recommendations
 
-Based on the winning Tuned ML model, we mapped the portfolio into a prioritized action playbook with distinct reason codes. These scores are strictly **decision-support** metrics; they identify pages that *look* worth reviewing first. 
+Based on the winning Tuned ML model, we mapped the portfolio into a prioritized action playbook with distinct reason codes. These scores are strictly **decision-support** metrics; they identify pages that *look* worth reviewing first. By applying the Tuned ML threshold, we successfully filtered a noisy 75,000-page dataset into a highly actionable queue. 
 
 ![Triage Results](figures/triage_results.svg)  
 *By applying the Tuned ML threshold, we successfully filtered a noisy 75,000-page dataset into a highly actionable queue of exactly 5,562 R1 targets.*
 
-A FlyRank editor can use this tomorrow by starting at the top of the **[R1] High-Value Drift (5,562 pages)** queue for immediate editorial refreshes. 
+**Part 1: Operational Strategy**
+*   **Immediate Triage:** A FlyRank editor can use this tomorrow by starting at the top of the **[R1] High-Value Drift (5,562 pages)** queue for immediate editorial refreshes.
+*   **Automated Auditing:** Route the lower-traffic **[R2] Stale Warning** pages into automated SEO crawlers to check for basic technical decay before spending human budget on them.
+*   **Content Lock & Prune:** Institute a "Do Not Touch" lock on the stable **[S1]** pages to protect their active momentum, and begin bulk-archiving the dead-weight **[S2]** pages to optimize crawl budget.
+
+**Part 2: Future ML Pipeline**
+*   **Engineer Seasonality (YoY):** Build a Year-over-Year traffic variance feature to prevent the model from firing false positives on pages that are organically dropping simply because their topic is "out of season."
+*   **Re-integrate GA4 Data:** Collaborate with Data Engineering to repair the upstream GA4 tracking pipeline. Reliable user-engagement metrics (like bounce rate) would allow the model to mathematically distinguish between a Google algorithm drop and poor content quality.
 
 ## 8. Reproducibility
 
