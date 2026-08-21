@@ -1,146 +1,55 @@
-# FlyRank ML Internship — Starter Repo
+# FlyRank ML Internship
 
-**Applied Search Intelligence: Google Search Ranking & Discoverability**
+**Applied Search Intelligence: Growth / Recovery / Momentum Prediction**
 
-This is the starting point for the FlyRank ML Internship. You **clone it into your own public
-repo** (one click — *Use this template*), build everything there, and submit that repo URL on
-each assignment in your portal — it's your workspace, your submission, and your portfolio all
-at once. The rhythm is simple: do the work, commit it, submit on the card. Done.
+This repository serves as my complete workspace and final portfolio submission for the 8-week FlyRank ML Internship. It documents the entire end-to-end journey—from initial problem framing and data auditing to the deployment of a heavily tuned Machine Learning pipeline.
 
-Everything here runs on a small **anonymized** slice of real FlyRank search data. No credentials,
-no private client data, no setup headaches.
-
-> **New here?** Two reads: **[SETUP.md](SETUP.md)** (GitHub, Colab, and data access — ten
-> minutes, with every silent pitfall flagged), then **[GUIDE.md](GUIDE.md)** (every file
-> explained, what to edit vs. leave alone, and where your own work goes — five minutes).
+🔗 **[Read my Final Deployed Capstone Paper Here](https://amanbanik.github.io/Intern_at_fly/paper/)**
 
 ---
 
-## Quickstart — first win in 2 minutes
+## 🏆 The Capstone Project: Editorial Triage
 
-The fastest path is Google Colab (one click, zero install). Open Notebook 1 and run all cells:
+### 🎯 The Business Problem
+Content teams manage tens of thousands of published articles. Updating a perfectly stable page wastes editorial hours, while ignoring a decaying high-value page bleeds organic traffic. By evaluating trailing 30-day Google Search Console data on a mid-panel month partition (March 2026), this project outputs a prioritized action queue—ensuring human editors focus their limited time strictly on pages where the potential retained value is mathematically the highest.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/notebooks/01_first_look_and_discovery.ipynb?flush_cache=true)
- **Week 1 — Run it, then discover a real truth yourself**
+### 🛠️ The Technical Hustle
+Web traffic is heavily right-skewed and power-law distributed. An initial Naive Random Forest completely failed (54% precision) because it memorized absolute ranks. 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/notebooks/02_your_first_readable_model.ipynb?flush_cache=true)
- **Week 2 — The model is just a rule you can read**
+Instead of accepting a transparent heuristic baseline (which scored 63% precision), I executed a deep pipeline audit:
+*   **Data Leakage Fixed:** Identified and repaired a silent `fillna` imputation error on missing rank positions.
+*   **Relative Feature Engineering:** Engineered `relative_pos_diff` to measure how far a page deviates from its specific domain's median rank, safely removing domain-size bias.
+*   **Aggressive Regularization:** Deployed an exhaustive Grid Search and heavily regularized the decision trees (`min_samples_leaf=20`) to physically force the model to generalize across domains.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/notebooks/03_working_with_the_full_release.ipynb?flush_cache=true)
- **Weeks 3+ — The full release (~79M rows) via DuckDB, no download needed** — hosted at
- [`FlyRank/internship-warehouse`](https://huggingface.co/datasets/FlyRank/internship-warehouse) (gated: request access + accept the data-use terms, approval is instant)
-
----
-
-## Your assignment notebooks — open, fill, save, done
-
-Every assignment is one pre-named skeleton notebook in `work/notebooks/`. Click its badge,
-fill the sections in order, then **File → Save a copy in GitHub → OK** — the dialog is
-already pre-filled with your repo and the right path.
-
-> **The badges know whose repo they're in.** About 30 seconds after you create your copy, an
-> automatic commit ("Point Colab badges at this copy") rewires every badge in it to open
-> **your** notebooks — with your saved work — instead of the shared read-only ones. Reading
-> this on the shared starter page? The badges below open blank previews; make your copy
-> first ([SETUP.md](SETUP.md), Moment 1).
-
-| Week | Card | Notebook | Open |
-|---|---|---|---|
-| 1 | ML-02 | `w01_research_question` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w01_research_question.ipynb?flush_cache=true) |
-| 2 | ML-03 | `w02_ml_task_framing` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w02_ml_task_framing.ipynb?flush_cache=true) |
-| 3 | ML-04 | `w03_data_contract` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w03_data_contract.ipynb?flush_cache=true) |
-| 3 | ML-05 | `w03_feature_leakage_check` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w03_feature_leakage_check.ipynb?flush_cache=true) |
-| 4 | ML-06 | `w04_signal_audit` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w04_signal_audit.ipynb?flush_cache=true) |
-| 4 | ML-07 | `w04_baseline_score` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w04_baseline_score.ipynb?flush_cache=true) |
-| 5 | ML-08 | `w05_model` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w05_model.ipynb?flush_cache=true) |
-| 6 | ML-09 | `w06_validation_audit` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w06_validation_audit.ipynb?flush_cache=true) |
-| 7 | ML-10 | `w07_action_playbook` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/w07_action_playbook.ipynb?flush_cache=true) |
-| 8 | ML-11 | `capstone` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmanBanik/Intern_at_fly/blob/main/work/notebooks/capstone.ipynb?flush_cache=true) |
-
-Badges not opening *your* copy? Colab's built-in opener always works: **File → Open notebook
-→ GitHub tab** → paste `github.com/you/your-repo` → pick the notebook.
-
-### Prefer local?
-
-```bash
-git clone <this-repo-url>
-cd flyrank-ml-internship-starter
-pip install -r requirements.txt          # or: uv pip install -r requirements.txt
-python scripts/run_all.py
-```
-
-That runs the whole pipeline on the bundled sample and writes results to `outputs/`.
+### 🚀 The Results
+*   The Tuned Random Forest achieved an unprecedented **71% Precision@100**, decisively defeating the business heuristic baseline.
+*   Successfully filtered a noisy, 75,000-page production dataset into a highly actionable queue of exactly **5,562 R1 (High-Value Drift)** targets ready for immediate editorial intervention.
 
 ---
 
-## What you get
+## 📅 The 8-Week Internship Progression
+
+While the capstone is the final output, this repository also houses the weekly foundational work that built up to it. The `work/notebooks/` directory contains the step-by-step progression of the internship:
+
+*   **Weeks 1-2 (Task Framing):** Defining the editorial triage problem and exploring the raw anonymized dataset.
+*   **Week 3 (Data Contract & Leakage):** Establishing rigorous data definitions and auditing the pipeline for target leakage.
+*   **Week 4 (Signal & Baseline):** Building the transparent business heuristic to serve as our performance floor (63% Precision).
+*   **Weeks 5-6 (Model & Validation):** Training the Naive ML models, realizing they fell into the power-law trap, and executing the Grid Search validation that led to the 71% tuned model.
+*   **Weeks 7-8 (Playbook & Capstone):** Translating the ML probabilities into the final action queue (`04_generate_playbook.py`) and publishing the final deployed paper.
+
+---
+
+## 📂 Key Repository Structure
 
 | Path | What it is |
 |---|---|
-| `notebooks/` | Week 1–2 **first-win notebooks** (Colab-ready). Start here. |
-| `scripts/01–05` + `run_all.py` | The runnable reference pipeline: prepare → baseline → train → evaluate → PDF. |
-| `data/raw/content_refresh_anonymized.csv` | The anonymized starter dataset (~30k pages). |
-| `outputs/` | Example outputs so you can see the **target shape** (`model_report.md`, `refresh_queue_sample.csv`, `charts/`). |
-| `work/` | **Your space.** Lane experiments and your capstone live here — see `work/README.md`. |
-| `docs/` | The core docs + the data dictionary (see below). |
+| `docs/paper/` | My final deployed Capstone Paper (HTML + CSS) & Social Metadata. |
+| `work/scripts/run_all.py` | The winning ML pipeline: prepares data, engineers relative features, trains the Tuned RF, and generates the action queue. |
+| `work/notebooks/capstone.ipynb` | The comprehensive capstone notebook, containing the narrative, codebase, 5-minute demo outline, and shareable social cuts. |
+| `work/experiment/` | Grid Search, VIF analyses, and feature importance artifacts proving why aggressive regularization unlocked the true signal. |
 
-### Read these (in `docs/`)
-
-1. **`ml-core-foundation-framework.md`** — the first-principles map of ML as a whole system. The backbone of the live sessions.
-2. **`ml-intern-dataset-and-lane-guide.md`** — how to use the data safely, the capstone workflow, and the analysis "lanes" you can pick from.
-3. **`intern-free-tooling-guide.md`** — the zero-budget tool stack (Python, Colab, free AI assistants). You never need to pay for anything.
-4. **`data-dictionary.md`** — all 44 columns: meaning, scale, and gotchas. Keep it open while you work.
-
----
-
-## The pipeline (what `run_all.py` does)
-
-```text
-01_prepare_features.py   clean + build the feature vector, define the label
-02_baseline_score.py     a transparent hand-rule "fix this first" score
-03_train_model.py        logistic regression, decision tree, random forest (client-holdout split)
-04_evaluate_and_export.py  ranked queue + charts + Markdown report
-05_build_pdf_report.py   a shareable PDF summary
-```
-
-On the bundled sample, the learned model clearly beats the hand-written rule at picking the right
-pages to review first (**Precision@50 ≈ 0.24 → 0.74**; the model number can land 0.68–0.74
-depending on library versions — the ~3x lift is the point). The notebooks compute these numbers
-live, so they always reflect the current data and environment.
-
-**Teaching point:** the model is the capstone, but the *workflow* is the lesson —
-`problem framing → data cleaning → baseline → first model → evaluation → explainable recommendation`.
-
----
-
-## Data safety (read `DATA_USE.md`)
-
-- Only the small **anonymized** CSV ships here — no client names, domains, URLs, titles, or keywords.
-- **Never** add raw private client data to this repo or your fork. Need more data? Request an approved
-  release from your mentor — never export it yourself.
-- Don't paste client data into third-party AI tools.
-- Frame every result as **observed / measured / directional / decision-support** — never
-  "I predicted Google's algorithm."
-
-The `.gitignore` blocks datasets by default, and CI fails any commit that includes a dataset.
-
----
-
-## Assignments & schedule
-
-Weekly assignments, live events, and the capstone live on **your portal board** (your
-enrollment email has your access link). This repo is the shared technical foundation they all
-build on — and the `skills/` folder here is the instruction library for your AI assistant
-(start at [skills/README.md](skills/README.md)).
-
-**First time with GitHub?** You need exactly four things (full walkthrough: [SETUP.md](SETUP.md)):
-1. A free account at github.com.
-2. Your own copy of this repo: **Use this template → Create a new repository** → public.
-   (One click — brings the notebooks, `work/`, and the CI leak-guard with it.)
-3. In Colab: *File → Save a copy in GitHub* — opened from your copy's badges, the dialog is
-   already pre-filled with your repo and path, so it's just OK (Colab handles auth).
-4. That's your submission repo — share its **github.com/you/your-repo** URL with Assignment 1
-   (never a colab.research.google.com or drive.google.com link).
+### 🔒 Data Safety Note
+This repository strictly uses the **anonymized** slice of real FlyRank search data provided for the internship. No private client data, URLs, or raw keywords are included in this repository. All `client_hash_id` and `content_hash_id` fields are strict pseudonyms.
 
 ---
 
